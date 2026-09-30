@@ -6,147 +6,393 @@
 <title>marryme</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐸</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,600&family=Nunito:wght@500;700&display=swap" rel="stylesheet">
+
 <style>
   :root{
     --cielo:#cfeefa; --cielo2:#fff4c9; --pasto:#7cc66b; --pasto2:#5aa84f;
     --rana:#6fcf5a; --rana-osc:#3f9a3a; --girasol:#ffc928; --centro:#7a4a1e;
     --texto:#2c4a2a; --card:#ffffffcc;
   }
+
   @media (prefers-color-scheme: dark){
-    :root{ --cielo:#1d2b4a; --cielo2:#4a3a4e; --texto:#fff4d6; --card:#1d2b4acc; --pasto:#3d7a3a; --pasto2:#2f6330; }
+    :root{
+      --cielo:#1d2b4a; --cielo2:#4a3a4e; --texto:#fff4d6;
+      --card:#1d2b4acc; --pasto:#3d7a3a; --pasto2:#2f6330;
+    }
   }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0}
+
+  *{
+    box-sizing:border-box
+  }
+
+  html,body{
+    height:100%;
+    margin:0
+  }
+
   body{
-    font-family:'Nunito',system-ui,sans-serif; color:var(--texto);
+    font-family:'Nunito',system-ui,sans-serif;
+    color:var(--texto);
     background:linear-gradient(180deg,var(--cielo) 0%,var(--cielo2) 70%);
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    min-height:100vh; padding:24px 20px 140px; text-align:center; overflow-x:hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:24px 20px 140px;
+    text-align:center;
+    overflow-x:hidden;
   }
-  .sol{position:fixed;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;
-    background:radial-gradient(circle,#fff6b0 0%,#ffe066 45%,#ffe06600 70%);}
-  h1{font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:600;
-    font-size:clamp(2.6rem,9vw,4.6rem);margin:0 0 6px;line-height:1.05}
-  .nombre{font-size:1.25rem;font-weight:700;margin:0 0 18px;min-height:1.5em}
-  .escena{width:min(340px,86vw);cursor:pointer;-webkit-tap-highlight-color:transparent}
-  .escena svg{width:100%;height:auto;overflow:visible}
-  .brazo{transform-origin:118px 168px;animation:ofrece 3.2s ease-in-out infinite}
-  .girasol{transform-origin:140px 150px;animation:mece 3.2s ease-in-out infinite}
-  .rana{transform-origin:100px 230px;animation:respira 3.2s ease-in-out infinite}
-  .parpado{animation:parpadeo 5s infinite;transform-origin:center;transform-box:fill-box}
-  @keyframes ofrece{0%,100%{transform:rotate(0)}50%{transform:rotate(-8deg)}}
-  @keyframes mece{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(6deg)}}
-  @keyframes respira{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.025)}}
-  @keyframes parpadeo{0%,92%,100%{transform:scaleY(0)}95%{transform:scaleY(1)}}
-  .mensaje{background:var(--card);border-radius:24px;padding:18px 26px;margin-top:8px;
-    max-width:440px;backdrop-filter:blur(6px);box-shadow:0 8px 24px #0000001a}
-  .mensaje p{margin:0;font-size:1.2rem;line-height:1.5;font-weight:500}
-  .mensaje strong{font-size:1.4rem}
-  button{font:inherit;font-weight:700;margin-top:18px;padding:12px 24px;border:0;border-radius:999px;
-    background:var(--girasol);color:#4a3200;cursor:pointer;box-shadow:0 4px 0 #d9a300;transition:transform .1s}
-  button:active{transform:translateY(3px);box-shadow:0 1px 0 #d9a300}
-  button:focus-visible{outline:3px solid var(--texto);outline-offset:3px}
-  .pasto{position:fixed;left:0;right:0;bottom:0;height:110px;
-    background:radial-gradient(120px 60px at 20% 100%,var(--pasto2) 98%,transparent) ,
-               radial-gradient(160px 70px at 65% 100%,var(--pasto2) 98%,transparent),
-               linear-gradient(var(--pasto),var(--pasto));
-    clip-path:ellipse(75% 100% at 50% 100%);z-index:-1}
-  .flor{position:fixed;top:-40px;font-size:1.6rem;pointer-events:none;animation:cae linear forwards;z-index:5}
-  @keyframes cae{to{transform:translateY(110vh) rotate(360deg)}}
+
+  .sol{
+    position:fixed;
+    top:-60px;
+    right:-60px;
+    width:200px;
+    height:200px;
+    border-radius:50%;
+    background:radial-gradient(circle,#fff6b0 0%,#ffe066 45%,#ffe06600 70%);
+  }
+
+  h1{
+    font-family:'Fraunces',Georgia,serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(2.6rem,9vw,4.6rem);
+    margin:0 0 6px;
+    line-height:1.05
+  }
+
+  .nombre{
+    font-size:1.25rem;
+    font-weight:700;
+    margin:0 0 18px;
+    min-height:1.5em
+  }
+
+  .escena{
+    width:min(340px,86vw);
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent
+  }
+
+  .escena svg{
+    width:100%;
+    height:auto;
+    overflow:visible
+  }
+
+  .brazo{
+    transform-origin:118px 168px;
+    animation:ofrece 3.2s ease-in-out infinite
+  }
+
+  .girasol{
+    transform-origin:140px 150px;
+    animation:mece 3.2s ease-in-out infinite
+  }
+
+  .rana{
+    transform-origin:100px 230px;
+    animation:respira 3.2s ease-in-out infinite
+  }
+
+  .parpado{
+    animation:parpadeo 5s infinite;
+    transform-origin:center;
+    transform-box:fill-box
+  }
+
+  @keyframes ofrece{
+    0%,100%{transform:rotate(0)}
+    50%{transform:rotate(-8deg)}
+  }
+
+  @keyframes mece{
+    0%,100%{transform:rotate(-4deg)}
+    50%{transform:rotate(6deg)}
+  }
+
+  @keyframes respira{
+    0%,100%{transform:scaleY(1)}
+    50%{transform:scaleY(1.025)}
+  }
+
+  @keyframes parpadeo{
+    0%,92%,100%{transform:scaleY(0)}
+    95%{transform:scaleY(1)}
+  }
+
+  /* MENSAJE SIN CUADRO DE FONDO */
+  .mensaje{
+    padding:18px 26px;
+    margin-top:8px;
+    max-width:440px;
+  }
+
+  .mensaje p{
+    margin:0;
+    font-size:1.2rem;
+    line-height:1.5;
+    font-weight:500
+  }
+
+  .mensaje strong{
+    font-size:1.4rem
+  }
+
+  button{
+    font:inherit;
+    font-weight:700;
+    margin-top:18px;
+    padding:12px 24px;
+    border:0;
+    border-radius:999px;
+    background:var(--girasol);
+    color:#4a3200;
+    cursor:pointer;
+    box-shadow:0 4px 0 #d9a300;
+    transition:transform .1s
+  }
+
+  button:active{
+    transform:translateY(3px);
+    box-shadow:0 1px 0 #d9a300
+  }
+
+  button:focus-visible{
+    outline:3px solid var(--texto);
+    outline-offset:3px
+  }
+
+  .pasto{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:110px;
+    background:
+      radial-gradient(120px 60px at 20% 100%,var(--pasto2) 98%,transparent),
+      radial-gradient(160px 70px at 65% 100%,var(--pasto2) 98%,transparent),
+      linear-gradient(var(--pasto),var(--pasto));
+    clip-path:ellipse(75% 100% at 50% 100%);
+    z-index:-1
+  }
+
+  .flor{
+    position:fixed;
+    top:-40px;
+    font-size:1.6rem;
+    pointer-events:none;
+    animation:cae linear forwards;
+    z-index:5
+  }
+
+  @keyframes cae{
+    to{
+      transform:translateY(110vh) rotate(360deg)
+    }
+  }
+
   @media (prefers-reduced-motion:reduce){
-    .brazo,.girasol,.rana,.parpado{animation:none} .flor{display:none}
+    .brazo,.girasol,.rana,.parpado{
+      animation:none
+    }
+
+    .flor{
+      display:none
+    }
   }
 </style>
 </head>
+
 <body>
+
 <div class="sol" aria-hidden="true"></div>
+
 <br>
-  <br>
+<br>
+
 <h1></h1>
+
 <p class="nombre" id="nombre"></p>
 
 <div class="escena" id="escena" role="img" aria-label="Una ranita le regala un girasol">
+
 <svg viewBox="0 0 240 260">
+
   <!-- cuerpo de la rana -->
   <g class="rana">
+
     <ellipse cx="100" cy="200" rx="62" ry="50" fill="var(--rana)"/>
     <ellipse cx="100" cy="215" rx="38" ry="30" fill="#d8f5b8"/>
     <ellipse cx="55" cy="243" rx="26" ry="11" fill="var(--rana-osc)"/>
     <ellipse cx="145" cy="243" rx="26" ry="11" fill="var(--rana-osc)"/>
+
     <!-- cabeza -->
     <ellipse cx="100" cy="140" rx="58" ry="42" fill="var(--rana)"/>
     <circle cx="66" cy="102" r="22" fill="var(--rana)"/>
     <circle cx="134" cy="102" r="22" fill="var(--rana)"/>
+
     <circle cx="66" cy="102" r="15" fill="#fff"/>
     <circle cx="134" cy="102" r="15" fill="#fff"/>
+
     <circle cx="69" cy="104" r="8" fill="#222"/>
     <circle cx="131" cy="104" r="8" fill="#222"/>
+
     <circle cx="72" cy="101" r="2.6" fill="#fff"/>
     <circle cx="134" cy="101" r="2.6" fill="#fff"/>
+
     <ellipse class="parpado" cx="66" cy="102" rx="16" ry="16" fill="var(--rana)"/>
     <ellipse class="parpado" cx="134" cy="102" rx="16" ry="16" fill="var(--rana)"/>
+
     <!-- mejillas y sonrisa -->
     <circle cx="52" cy="145" r="9" fill="#ff9db0" opacity=".7"/>
     <circle cx="148" cy="145" r="9" fill="#ff9db0" opacity=".7"/>
-    <path d="M72 138 Q100 168 128 138" fill="none" stroke="#2b5a26" stroke-width="4" stroke-linecap="round"/>
-    <circle cx="90" cy="124" r="2" fill="#2b5a26"/><circle cx="110" cy="124" r="2" fill="#2b5a26"/>
+
+    <path
+      d="M72 138 Q100 168 128 138"
+      fill="none"
+      stroke="#2b5a26"
+      stroke-width="4"
+      stroke-linecap="round"
+    />
+
+    <circle cx="90" cy="124" r="2" fill="#2b5a26"/>
+    <circle cx="110" cy="124" r="2" fill="#2b5a26"/>
+
     <!-- brazo izquierdo -->
-    <ellipse cx="50" cy="190" rx="12" ry="22" fill="var(--rana-osc)" transform="rotate(20 50 190)"/>
+    <ellipse
+      cx="50"
+      cy="190"
+      rx="12"
+      ry="22"
+      fill="var(--rana-osc)"
+      transform="rotate(20 50 190)"
+    />
+
   </g>
+
   <!-- brazo derecho con girasol -->
   <g class="brazo">
-    <ellipse cx="150" cy="185" rx="12" ry="26" fill="var(--rana-osc)" transform="rotate(-30 150 185)"/>
+
+    <ellipse
+      cx="150"
+      cy="185"
+      rx="12"
+      ry="26"
+      fill="var(--rana-osc)"
+      transform="rotate(-30 150 185)"
+    />
+
     <g class="girasol">
-      <path d="M140 150 Q142 100 146 70" stroke="#3c8a2e" stroke-width="6" fill="none" stroke-linecap="round"/>
-      <path d="M143 118 Q170 108 176 122 Q160 132 143 118Z" fill="#4fa53c"/>
+
+      <path
+        d="M140 150 Q142 100 146 70"
+        stroke="#3c8a2e"
+        stroke-width="6"
+        fill="none"
+        stroke-linecap="round"
+      />
+
+      <path
+        d="M143 118 Q170 108 176 122 Q160 132 143 118Z"
+        fill="#4fa53c"
+      />
+
       <g transform="translate(147 55)">
+
         <g fill="var(--girasol)">
-          <ellipse cx="0" cy="-27" rx="9" ry="16"/><ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(30)"/>
-          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(60)"/><ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(90)"/>
-          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(120)"/><ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(150)"/>
-          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(180)"/><ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(210)"/>
-          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(240)"/><ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(270)"/>
-          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(300)"/><ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(330)"/>
+
+          <ellipse cx="0" cy="-27" rx="9" ry="16"/>
+          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(30)"/>
+          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(60)"/>
+          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(90)"/>
+          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(120)"/>
+          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(150)"/>
+          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(180)"/>
+          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(210)"/>
+          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(240)"/>
+          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(270)"/>
+          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(300)"/>
+          <ellipse cx="0" cy="-27" rx="9" ry="16" transform="rotate(330)"/>
+
         </g>
+
         <circle r="19" fill="var(--centro)"/>
-        <circle cx="-5" cy="-4" r="2" fill="#a06a30"/><circle cx="5" cy="3" r="2" fill="#a06a30"/><circle cx="-2" cy="7" r="2" fill="#a06a30"/>
+
+        <circle cx="-5" cy="-4" r="2" fill="#a06a30"/>
+        <circle cx="5" cy="3" r="2" fill="#a06a30"/>
+        <circle cx="-2" cy="7" r="2" fill="#a06a30"/>
+
       </g>
+
     </g>
+
   </g>
+
 </svg>
+
 </div>
 
 <div class="mensaje">
-  <p><strong>te quiero mucho </strong> <br>
+  <p>
+    <strong>te quiero mucho </strong>
+    <br>
     que tengas un buen dia portate bien no me olvides :'(
   </p>
 </div>
 
-<button id="btn" type="button">clic (muchas veces) </button>
+<button id="btn" type="button">clic (muchas veces)</button>
+
 <div class="pasto" aria-hidden="true"></div>
 
 <script>
-  
-  const NOMBRE = "tqm";   
-  if (NOMBRE) document.getElementById('nombre').textContent = "para " + NOMBRE;
+
+  const NOMBRE = "tqm";
+
+  if (NOMBRE)
+    document.getElementById('nombre').textContent = "para " + NOMBRE;
 
   function lluvia(){
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches)
+      return;
+
     for (let i = 0; i < 22; i++){
+
       const f = document.createElement('div');
+
       f.className = 'flor';
+
       f.textContent = i % 4 === 0 ? '💛' : '🌻';
+
       f.style.left = Math.random()*100 + 'vw';
-      f.style.animationDuration = (3 + Math.random()*3) + 's';
-      f.style.animationDelay = (Math.random()*1.2) + 's';
-      f.style.fontSize = (1.2 + Math.random()*1.4) + 'rem';
+
+      f.style.animationDuration =
+        (3 + Math.random()*3) + 's';
+
+      f.style.animationDelay =
+        (Math.random()*1.2) + 's';
+
+      f.style.fontSize =
+        (1.2 + Math.random()*1.4) + 'rem';
+
       document.body.appendChild(f);
+
       setTimeout(() => f.remove(), 7500);
     }
   }
-  document.getElementById('btn').addEventListener('click', lluvia);
-  document.getElementById('escena').addEventListener('click', lluvia);
+
+  document.getElementById('btn')
+    .addEventListener('click', lluvia);
+
+  document.getElementById('escena')
+    .addEventListener('click', lluvia);
+
   setTimeout(lluvia, 700);
+
 </script>
+
 </body>
 </html>
